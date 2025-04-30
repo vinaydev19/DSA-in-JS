@@ -199,23 +199,40 @@ for (let i = 1; i <= n; i++) {
 * * * * *
 */
 // solve
+// TODO:
+/*
 for (let i = 1; i <= n; i++) {
     for (let j = 1; j <= i; j++) {
-        process.stdout.write("* ")
+        if (j === 1 || j === i || i === n) {
+            process.stdout.write("* ");
+        } else {
+            process.stdout.write("  ");
+        }
     }
     console.log();
 }
+*/
 
 
-
-
-// pattern 1
+// pattern 2
 /*
 * * * * *
 *       *
 *       *
 *       *
 * * * * *
+*/
+/*
+for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= n; j++) {
+        if(i === 1 || i === n || j === n || j === 1){
+            process.stdout.write("* ");
+        }else{
+            process.stdout.write("  ");
+        }
+    }
+    console.log();
+}
 */
 
 
@@ -228,6 +245,12 @@ for (let i = 1; i <= n; i++) {
   * * * * * * *
 * * * * * * * * *
 */
+for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= n; j++) { 
+        process.stdout.write("* ");
+    }
+    console.log();
+}
 
 
 
