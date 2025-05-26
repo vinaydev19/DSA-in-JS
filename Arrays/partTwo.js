@@ -108,6 +108,7 @@ function reverse(i, j) {
 */
 
 // right Rotation
+/*
 let arr = [1, 2, 3, 4, 5]
 let k = 3
 k = k % arr.length
@@ -125,3 +126,56 @@ function reverse(i, j) {
         j--
     }
 }
+*/
+
+// merge two sorted arrays 
+/*
+let arr1 = [1, 3, 5, 7, 9]
+let arr2 = [2, 4, 6, 8, 10]
+let merge = new Array(arr1.length + arr2.length)
+let i = 0, j = 0, k = 0;
+while (i < arr1.length && j < arr2.length) {
+    if (arr1[i] < arr2[j]) {
+        merge[k] = arr1[i]
+        i++
+        k++
+    } else {
+        merge[k] = arr2[j]
+        j++
+        k++
+    }
+}
+
+while (j < arr2.length) {
+    merge[k] = arr2[j]
+    j++
+    k++
+}
+
+ iwhile (i < arr1.length) {
+    merge[k] = arr2[i]
+    i++
+    k++
+}
+console.log(merge);
+*/
+
+
+
+
+// Kadane's Algorithm
+function maxSubArray(nums) {
+    let maxSum = nums[0]
+    for (let i = 0; i < nums.length; i++) {
+        let currentSum = 0
+        for (let j = 0; j < nums.length; j++) {
+            currentSum = currentSum + nums[j]
+            if (currentSum > maxSum) {
+                maxSum = currentSum
+            }
+        }
+    }
+    return maxSum
+}
+
+console.log(maxSubArray([-2,1,-3,4,-1,2,1,-5,4]));
