@@ -243,7 +243,10 @@ function reverse(start, end) {
 }
 */
 
+
+
 // merge sorted array
+/*
 let arr1 = [1, 3, 5, 7]
 let arr2 = [2, 4, 6, 8]
 let mergedArray = new Array(arr1.length + arr2.length)
@@ -271,3 +274,34 @@ while (i < arr1.length) {
 }
 
 console.log(mergedArray);
+*/
+
+
+// maximun subarray sum \ kadane's
+// Kadane's algorithm is a popular method to find the maximum sum of a contiguous subarray in an array of integers. The algorithm works by iterating through the array while maintaining the maximum sum found so far and the current sum of the subarray being considered.
+// The basic idea is to keep track of the maximum sum of the subarray ending at the current position and update the overall maximum sum if the current subarray sum exceeds it. If the current subarray sum becomes negative, it is reset to zero, as a negative sum would not contribute positively to any future subarray sums.
+
+/*
+// brute force approach
+function maxSubArraySum(arr) {
+    let maxSum = arr[0];
+
+    for(let i = 0; i < arr.length; i++) {
+        let currentSum = 0;
+        for(let j = i; j < arr.length; j++) {
+            currentSum += arr[j];
+            if(currentSum > maxSum) {
+                maxSum = currentSum;
+            }
+        }
+    }
+
+    return maxSum;
+}
+
+// Example usage
+let arr = [-2,1,-3,4,-1,2,1,-5,4];
+console.log("Maximum Subarray Sum:", maxSubArraySum(arr)); 
+*/
+
+
