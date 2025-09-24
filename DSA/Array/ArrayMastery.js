@@ -36,7 +36,7 @@ function FindMaxAndMin(arr) {
 }
 
 let arr = [6, 5, 10, 12, 1]
-console.log("Max and Min is: ", FindMaxAndMin(arr));
+// console.log("Max and Min is: ", FindMaxAndMin(arr));
 
 
 
@@ -55,7 +55,7 @@ function reverseArray(arr) {
     return arr
 }
 let arr1 = [1, 2, 3, 4, 6]
-console.log("Reversed Array is using temp arr: ", reverseArray(arr1));
+// console.log("Reversed Array is using temp arr: ", reverseArray(arr1));
 
 
 // Reverse an Array (in-place) - way use two pointer
@@ -72,7 +72,7 @@ function reverseArray1(arr) {
     return arr
 }
 let arr2 = [1, 2, 3, 4, 6]
-console.log("Reversed Array is using two pointer: ", reverseArray1(arr2));
+// console.log("Reversed Array is using two pointer: ", reverseArray1(arr2));
 
 
 // Rotate Array (left/right by 1)
@@ -90,7 +90,7 @@ function rotateArrayLeftByOne(arr) {
 }
 
 let arr3 = [1, 2, 3, 4, 5]
-console.log("Array after left rotation by one: ", rotateArrayLeftByOne(arr3));
+// console.log("Array after left rotation by one: ", rotateArrayLeftByOne(arr3));
 
 function rotateArrayRightByOne(arr) {
     let temp = arr[arr.length - 1]
@@ -105,7 +105,7 @@ function rotateArrayRightByOne(arr) {
 }
 
 let arr4 = [1, 2, 3, 4, 5]
-console.log("Array after right rotation by one: ", rotateArrayRightByOne(arr4));
+// console.log("Array after right rotation by one: ", rotateArrayRightByOne(arr4));
 
 
 // Rotate Array (left/right by k) - way 1 (using loop k times)
@@ -127,7 +127,7 @@ function rotateArrayLeftByKLoopKTimes(arr, k) {
 
 let arr5 = [1, 2, 3, 4, 5]
 let k1 = 2
-console.log("Array after left rotation by k using loop k times: ", rotateArrayLeftByKLoopKTimes(arr5, k1));
+// console.log("Array after left rotation by k using loop k times: ", rotateArrayLeftByKLoopKTimes(arr5, k1));
 
 
 function rotateArrayRightByKLoopKTimes(arr, k) {
@@ -147,7 +147,7 @@ function rotateArrayRightByKLoopKTimes(arr, k) {
 
 let arr6 = [1, 2, 3, 4, 5]
 let k2 = 2
-console.log("Array after right rotation by k using loop k times: ", rotateArrayRightByKLoopKTimes(arr6, k2));
+// console.log("Array after right rotation by k using loop k times: ", rotateArrayRightByKLoopKTimes(arr6, k2));
 
 
 // Rotate Array (left/right by k) - way 2 (using temp array)
@@ -170,7 +170,7 @@ function rotateArrayLeftByKUsingTempArray(arr, k) {
 
 let arr7 = [1, 2, 3, 4, 5]
 let k3 = 2
-console.log("Array after left rotation by k using temp array: ", rotateArrayLeftByKUsingTempArray(arr7, k3));
+// console.log("Array after left rotation by k using temp array: ", rotateArrayLeftByKUsingTempArray(arr7, k3));
 
 
 function rotateArrayRightByKUsingTempArray(arr, k) {
@@ -191,7 +191,7 @@ function rotateArrayRightByKUsingTempArray(arr, k) {
 
 let arr8 = [1, 2, 3, 4, 5]
 let k4 = 2
-console.log("Array after right rotation by k using temp array: ", rotateArrayRightByKUsingTempArray(arr8, k4));
+// console.log("Array after right rotation by k using temp array: ", rotateArrayRightByKUsingTempArray(arr8, k4));
 
 
 // Rotate Array (left/right by k) - way 3 (using reversal algorithm)
@@ -218,7 +218,7 @@ function rotateArrayLeftByKUsingReversalAlgorithm(arr, k) {
 
 let arr9 = [1, 2, 3, 4, 5]
 let k5 = 2
-console.log("Array after left rotation by k using reversal algorithm: ", rotateArrayLeftByKUsingReversalAlgorithm(arr9, k5));
+// console.log("Array after left rotation by k using reversal algorithm: ", rotateArrayLeftByKUsingReversalAlgorithm(arr9, k5));
 
 
 function rotateArrayRightByKUsingReversalAlgorithm(arr, k) {
@@ -233,4 +233,101 @@ function rotateArrayRightByKUsingReversalAlgorithm(arr, k) {
 
 let arr10 = [1, 2, 3, 4, 5]
 let k6 = 2
-console.log("Array after right rotation by k using reversal algorithm: ", rotateArrayRightByKUsingReversalAlgorithm(arr10, k6));
+// console.log("Array after right rotation by k using reversal algorithm: ", rotateArrayRightByKUsingReversalAlgorithm(arr10, k6));
+
+
+/*
+Day 2 – Two Pointers Basics
+Learn the two pointer approach (start and end pointers).
+Problems:
+Check if array is a palindrome
+Pair sum (Two Sum in sorted array)
+Remove duplicates from sorted array
+*/
+
+// Problems of day 2
+
+// Check if array is a palindrome
+// brute force approach - way 1 (using extra space)
+
+function isArrayPalindromeUsingExtraSpace(arr) {
+    let temp = new Array(arr.length)
+
+    for (let i = 0; i < arr.length; i++) {
+        temp[i] = arr[arr.length - i - 1]
+    }
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] !== temp[i]) {
+            return false
+        }
+    }
+
+    return true
+}
+
+let arr11 = [1, 2, 3, 2, 1, 5]
+// console.log("Is array palindrome using extra space: ", isArrayPalindromeUsingExtraSpace(arr11));
+
+// optimal approach - way 2 (using two pointer)
+
+function isArrayPalindromeUsingTwoPointer(arr) {
+    let left = arr[0]
+    let right = arr[arr.length - 1]
+
+    while (left < right) {
+        if (arr[left] !== arr[right]) {
+            return false
+        }
+        left++
+        right--
+    }
+
+    return true
+}
+
+let arr12 = [1, 2, 3, 2, 1, 5]
+// console.log("Is array palindrome using two pointer: ", isArrayPalindromeUsingTwoPointer(arr12));
+
+
+// Pair sum (Two Sum in sorted array) - way 1 (checking all pairs - brute force)
+function pairSumBruteForce(arr, target) {
+    for (let i = 0; i < arr.length - 1; i++) {
+        for (let j = i + 1; j < arr.length; j++) {
+            if (arr[i] + arr[j] === target) {
+                return [i, j]  // return indices of the pair
+            }
+        }
+    }
+    return null
+}
+
+let arr13 = [1, 2, 3, 4, 5]
+let target1 = 5
+// console.log("Pair sum using brute force: ", pairSumBruteForce(arr13, target1));
+
+// Pair sum (Two Sum in sorted array) - way 2 (using two pointer - optimal approach)
+function pairSumTwoPointer(arr, target) {
+    let left = 0
+    let right = arr.length - 1
+
+    while (left < right) {
+        let sum = arr[left] + arr[right]
+
+        if (sum === target) {
+            return [left, right]
+        } else if (sum < target) {
+            left++
+        } else {
+            right--
+        }
+    }
+    return null
+}
+
+let arr14 = [2, 7, 11, 15]
+let target2 = 9
+// console.log("Pair sum using two pointer: ", pairSumTwoPointer(arr14, target2));
+
+
+// Remove duplicates from sorted array - way 1 (using extra space - brute force)
