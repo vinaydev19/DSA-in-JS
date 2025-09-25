@@ -38,8 +38,6 @@ function FindMaxAndMin(arr) {
 let arr = [6, 5, 10, 12, 1]
 // console.log("Max and Min is: ", FindMaxAndMin(arr));
 
-
-
 // Reverse an Array (in-place) - way use temp array
 function reverseArray(arr) {
     let temp = new Array(arr.length)
@@ -57,7 +55,6 @@ function reverseArray(arr) {
 let arr1 = [1, 2, 3, 4, 6]
 // console.log("Reversed Array is using temp arr: ", reverseArray(arr1));
 
-
 // Reverse an Array (in-place) - way use two pointer
 function reverseArray1(arr) {
     let left = 0
@@ -74,9 +71,7 @@ function reverseArray1(arr) {
 let arr2 = [1, 2, 3, 4, 6]
 // console.log("Reversed Array is using two pointer: ", reverseArray1(arr2));
 
-
 // Rotate Array (left/right by 1)
-
 function rotateArrayLeftByOne(arr) {
     let temp = arr[0]
 
@@ -109,7 +104,6 @@ let arr4 = [1, 2, 3, 4, 5]
 
 
 // Rotate Array (left/right by k) - way 1 (using loop k times)
-
 function rotateArrayLeftByKLoopKTimes(arr, k) {
     k = k % arr.length
     for (let i = 0; i < k; i++) {
@@ -151,7 +145,6 @@ let k2 = 2
 
 
 // Rotate Array (left/right by k) - way 2 (using temp array)
-
 function rotateArrayLeftByKUsingTempArray(arr, k) {
     k = k % arr.length
     let temp = new Array(arr.length)
@@ -195,7 +188,6 @@ let k4 = 2
 
 
 // Rotate Array (left/right by k) - way 3 (using reversal algorithm)
-
 function reverse(arr, i, j) {
     while (i < j) {
         let temp = arr[i]
@@ -249,7 +241,6 @@ Remove duplicates from sorted array
 
 // Check if array is a palindrome
 // brute force approach - way 1 (using extra space)
-
 function isArrayPalindromeUsingExtraSpace(arr) {
     let temp = new Array(arr.length)
 
@@ -270,7 +261,6 @@ let arr11 = [1, 2, 3, 2, 1, 5]
 // console.log("Is array palindrome using extra space: ", isArrayPalindromeUsingExtraSpace(arr11));
 
 // optimal approach - way 2 (using two pointer)
-
 function isArrayPalindromeUsingTwoPointer(arr) {
     let left = arr[0]
     let right = arr[arr.length - 1]
@@ -330,4 +320,123 @@ let target2 = 9
 // console.log("Pair sum using two pointer: ", pairSumTwoPointer(arr14, target2));
 
 
-// Remove duplicates from sorted array - way 1 (using extra space - brute force)
+// Remove duplicates from sorted array - way 1 (using set - brute force)
+function removeDuplicatesUsingSet(arr) {
+    let set = new Set()
+
+    for (let num of arr) {
+        set.add(num)
+    }
+
+    for (let i = 0; i < set.length; i++) {
+        arr[i] = set[i]
+    }
+
+    return set.size
+}
+
+let arr15 = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]
+// console.log("Remove duplicates using set: ", removeDuplicatesUsingSet(arr15));
+
+// Remove duplicates from sorted array - way 2 (using two pointer - optimal approach)
+function removeDuplicatesUsingTwoPointer(arr) {
+    let i = 0
+    for (let j = 1; j < arr.length; j++) {
+        if (arr[j] !== arr[i]) {
+            arr[i + 1] = arr[j]
+            i++
+        }
+    }
+    return i + 1
+}
+
+let arr16 = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]
+// console.log("Remove duplicates using two pointer: ", removeDuplicatesUsingTwoPointer(arr16));
+
+
+/*
+Day 3 – Prefix Sum + Kadane’s
+Learn prefix sum technique.
+Learn Kadane’s algorithm (max subarray sum).
+Problems:
+    Prefix sum of array
+    Range Sum Query - Immutable
+    Subarray Sum Equals K
+    Maximum Subarray (Kadane’s)
+*/
+
+// Problems of day 3
+
+// Prefix sum of array - way 1 (using extra space - brute force)
+function prefixSumUsingExtraSpace(arr) {
+    let prefixSum = new Array(arr.length)
+    prefixSum[0] = arr[0]
+
+    for (let i = 1; i < arr.length; i++) {
+        prefixSum[i] = prefixSum[i - 1] + arr[i]
+    }
+
+    return prefixSum
+}
+let arr17 = [1, 2, 3, 4, 5]
+// console.log("Prefix sum using extra space: ", prefixSumUsingExtraSpace(arr17));
+
+// prefix sum of array - way 2 (optimal approach - in-place)
+function prefixSumInPlace(arr) {
+    for (let i = 1; i < arr.length; i++) {
+        arr[i] = arr[i] + arr[i - 1]
+    }
+    return arr
+}
+let arr18 = [1, 2, 3, 4, 5]
+// console.log("Prefix sum in-place: ", prefixSumInPlace(arr18));
+
+
+// Range Sum Query - Immutable - way 1 (brute force - calculate sum for each query)
+function rangeSumBruteForce(arr, queries) {
+    let results = []
+
+    for (let q of queries) {
+        let left = q[0]
+        let right = q[1]
+        let sum = 0
+        for (let i = left; i <= right; i++) {
+            sum = sum + arr[i]
+        }
+        results.push(sum)
+    }
+
+    return results
+}
+
+let arr19 = [1, 2, 3, 4, 5]
+let queries1 = [[0, 2], [1, 3], [0, 4]]
+console.log("Range sum using brute force: ", rangeSumBruteForce(arr19, queries1));
+
+
+// Range Sum Query - Immutable - way 2 (optimal approach - using prefix sum)
+function rangeSumUsingPrefixSum(arr, queries) {
+    let prefixSum = new Array(arr.length)
+    prefixSum[0] = arr[0]
+
+    for (let i = 1; i < arr.length; i++) {
+        prefixSum[i] = prefixSum[i - 1] + arr[i]
+    }
+
+    let results = []
+    for (let q of queries) {
+        let left = q[0]
+        let right = q[1]
+        if (left === 0) {
+            results.push(prefixSum[right])
+        } else {
+            results.push(prefixSum[right] - prefixSum[left - 1])
+        }
+    }
+
+    return results
+}
+
+let arr20 = [1, 2, 3, 4, 5]
+let queries2 = [[0, 2], [1, 3], [2, 4]]
+console.log("Range sum using prefix sum: ", rangeSumUsingPrefixSum(arr20, queries2));
