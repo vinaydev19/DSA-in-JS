@@ -361,8 +361,8 @@ Learn Kadane’s algorithm (max subarray sum).
 Problems:
     Prefix sum of array
     Range Sum Query - Immutable
+    Find max subarray sum (Kadane’s)
     Subarray Sum Equals K
-    Maximum Subarray (Kadane’s)
 */
 
 // Problems of day 3
@@ -408,10 +408,9 @@ function rangeSumBruteForce(arr, queries) {
 
     return results
 }
-
 let arr19 = [1, 2, 3, 4, 5]
 let queries1 = [[0, 2], [1, 3], [0, 4]]
-console.log("Range sum using brute force: ", rangeSumBruteForce(arr19, queries1));
+// console.log("Range sum using brute force: ", rangeSumBruteForce(arr19, queries1));
 
 
 // Range Sum Query - Immutable - way 2 (optimal approach - using prefix sum)
@@ -436,7 +435,115 @@ function rangeSumUsingPrefixSum(arr, queries) {
 
     return results
 }
-
 let arr20 = [1, 2, 3, 4, 5]
 let queries2 = [[0, 2], [1, 3], [2, 4]]
-console.log("Range sum using prefix sum: ", rangeSumUsingPrefixSum(arr20, queries2));
+// console.log("Range sum using prefix sum: ", rangeSumUsingPrefixSum(arr20, queries2));
+
+
+// Find max subarray sum (Kadane’s Algorithm) - way 1 (brute force - check all subarrays)
+function maxSubarraySumBruteForce(arr) {
+    let maxSum = -Infinity
+
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = i; j < arr.length; j++) {
+            let currentSum = 0
+            for (let k = i; k <= j; k++) {
+                currentSum += arr[k]
+            }
+            maxSum = Math.max(maxSum, currentSum)
+        }
+    }
+
+    return maxSum
+}
+
+let arr21 = [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+// console.log("Max subarray sum using brute force: ", maxSubarraySumBruteForce(arr21)); // 6
+
+// Find max subarray sum (Kadane’s Algorithm) - way 2 (optimal approach - Kadane's algorithm)
+function maxSubarraySumKadane(arr) {
+    let maxSum = -Infinity
+    let currentSum = 0
+
+    for (let i = 0; i < arr.length; i++) {
+        currentSum += arr[i]
+        maxSum = Math.max(maxSum, currentSum)
+        if (currentSum < 0) {
+            currentSum = 0
+        }
+    }
+    return maxSum
+}
+let arr22 = [-2, -3, 4, -1, -2, 1, 5, -3]
+// console.log("Max subarray sum using Kadane's algorithm: ", maxSubarraySumKadane(arr22)); // 6
+
+
+// Subarray Sum Equals K - way 1 (brute force - check all subarrays)
+function subarraySumEqualsKBruteForce(arr, k) {
+    let count = 0
+
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = i; j < arr.length; j++) {
+            let currentSum = 0
+            for (let l = i; l <= j; l++) {
+                currentSum += arr[l]
+            }
+
+            if (currentSum === k) {
+                count++
+            }
+        }
+    }
+
+    return count
+}
+
+let arr23 = [1, 1, 1]
+let k7 = 2
+// console.log("Subarray sum equals k using brute force: ", subarraySumEqualsKBruteForce(arr23, k7)); // 2
+
+// Subarray Sum Equals K - way 2 (better approach - remove one l loop)
+function subarraySumEqualsKBetter(arr, k) {
+    let count = 0
+
+    for (let i = 0; i < arr.length; i++) {
+        let currentSum = 0
+        for (let j = i; j < arr.length; j++) {
+            currentSum += arr[j]
+
+            if (currentSum === k) {
+                count++
+            }
+        }
+    }
+
+    return count
+}
+
+let arr24 = [1, 1, 1]
+let k8 = 2
+// console.log("Subarray sum equals k using better approach: ", subarraySumEqualsKBetter(arr24, k8)); // 2
+
+// Subarray Sum Equals K - way 3 (optimal approach - using prefix sum and hashmap)
+function subarraySum(nums, k) {
+    let count = 0;               // total number of subarrays
+    let prefixSum = 0;           // running total of the array
+    let map = new Map();         // store how many times a prefixSum has occurred
+    map.set(0, 1);               // important: empty subarray sum = 0
+
+    for (let num of nums) {
+        prefixSum += num;        // update running total
+        // check if there is a previous prefixSum that would make current subarray sum = k
+        if (map.has(prefixSum - k)) {
+            count += map.get(prefixSum - k);
+        }
+        // update map with current prefixSum
+        map.set(prefixSum, (map.get(prefixSum) || 0) + 1);
+    }
+
+    return count;
+}
+
+let arr25 = [1, 1, 1]
+let k9 = 2
+// console.log("Subarray sum equals k using optimal approach: ", subarraySum(arr25, k9)); // 2
