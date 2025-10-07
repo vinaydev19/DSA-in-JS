@@ -547,3 +547,16 @@ function subarraySum(nums, k) {
 let arr25 = [1, 1, 1]
 let k9 = 2
 // console.log("Subarray sum equals k using optimal approach: ", subarraySum(arr25, k9)); // 2
+
+/*
+Day 4 – Sliding Window
+    Learn sliding window for subarrays.
+    Problems:
+        Max sum of subarray of size K
+        Smallest subarray with sum ≥ target
+        Longest subarray of 1’s after flipping at most K zeroes
+*/
+
+// Problems of day 4
+
+// Max sum of subarray of size K - way 1 (brute force - check all subarrays of size k)
