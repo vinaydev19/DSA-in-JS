@@ -1,0 +1,147 @@
+🕒 Time Complexity
+Definition:
+Time complexity measures how the runtime of an algorithm grows as the size of the input (n) increases.
+It tells you how fast an algorithm runs, in terms of the number of operations, not actual seconds.
+
+
+💾 Space Complexity
+Definition:
+Space complexity measures how much extra memory an algorithm needs as the input size increases.
+It includes:
+Memory for input data
+Auxiliary (temporary) space
+Stack space for recursion
+
+
+⚙️ What Is Big O?
+
+Big O notation is a way to describe how efficient an algorithm is — specifically,
+how the runtime or space usage of an algorithm grows as the size of the input (n) increases.
+
+In other words:
+Big O tells you how the algorithm scales when the amount of data grows.
+
+🧠 Why It’s Called “Big O”
+
+The “O” stands for Order of, as in “order of growth.”
+For example, saying an algorithm is O(n) means its runtime grows on the order of n — linearly.
+
+🔢 Common Big-O Notations (from fastest to slowest)
+| Complexity | Name         | Example                      |
+| ---------- | ------------ | ---------------------------- |
+| O(1)       | Constant     | Accessing an array element   |
+| O(log n)   | Logarithmic  | Binary search                |
+| O(n)       | Linear       | Single loop                  |
+| O(n log n) | Linearithmic | Merge sort, Quick sort (avg) |
+| O(n²)      | Quadratic    | Nested loops                 |
+| O(2ⁿ)      | Exponential  | Recursive Fibonacci          |
+| O(n!)      | Factorial    | Generating all permutations  |
+
+
+⚡ 1. O(1) — Constant Time
+👉 The runtime does not depend on the size of the input.
+function getFirstElement(arr) {
+  return arr[0]; // always one operation
+}
+getFirstElement([10, 20, 30, 40]); // O(1)
+✅ Whether arr has 10 or 10 million elements, it still takes the same time.
+
+
+🔍 2. O(log n) — Logarithmic Time
+👉 Each step reduces the problem size by half — common in binary search.
+function binarySearch(arr, target) {
+  let left = 0, right = arr.length - 1;
+  while (left <= right) {
+    let mid = Math.floor((left + right) / 2);
+    if (arr[mid] === target) return mid;
+    else if (arr[mid] < target) left = mid + 1;
+    else right = mid - 1;
+  }
+  return -1;
+}
+
+binarySearch([1,2,3,4,5,6,7,8], 6); // O(log n)
+✅ Each loop halves the search range (like looking in a phone book).
+
+
+🔁 3. O(n) — Linear Time
+👉 Work grows directly with input size.
+function printAll(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    console.log(arr[i]);
+  }
+}
+
+printAll([1, 2, 3, 4, 5]); // O(n)
+✅ If the array doubles in size, runtime doubles.
+
+
+⚙️ 4. O(n log n) — Linearithmic Time
+👉 Common in efficient sorting algorithms like Merge Sort or Quick Sort (average case).
+function mergeSort(arr) {
+  if (arr.length <= 1) return arr;
+
+  const mid = Math.floor(arr.length / 2);
+  const left = mergeSort(arr.slice(0, mid));
+  const right = mergeSort(arr.slice(mid));
+
+  return merge(left, right);
+}
+
+function merge(left, right) {
+  const result = [];
+  while (left.length && right.length) {
+    if (left[0] < right[0]) result.push(left.shift());
+    else result.push(right.shift());
+  }
+  return result.concat(left, right);
+}
+
+mergeSort([5,3,8,4,2]); // O(n log n)
+✅ Divide the array (log n times) and merge (n work each time).
+
+
+🔄 5. O(n²) — Quadratic Time
+👉 Typical of nested loops, where for every element you iterate again.
+function printPairs(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr.length; j++) {
+      console.log(arr[i], arr[j]);
+    }
+  }
+}
+
+printPairs([1, 2, 3]); // O(n²)
+✅ If the input doubles, the work grows by roughly 4×.
+
+
+🧬 6. O(2ⁿ) — Exponential Time
+👉 Work doubles with every additional input element (common in recursion).
+function fibonacci(n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+fibonacci(10); // O(2ⁿ)
+✅ Each call spawns two more calls — extremely slow for large n.
+
+
+🌀 7. O(n!) — Factorial Time
+👉 Used when generating all permutations of a set.
+function permute(arr) {
+  if (arr.length === 0) return [[]];
+  const result = [];
+
+  for (let i = 0; i < arr.length; i++) {
+    const rest = [...arr.slice(0, i), ...arr.slice(i + 1)];
+    for (const p of permute(rest)) {
+      result.push([arr[i], ...p]);
+    }
+  }
+  return result;
+}
+
+permute([1, 2, 3]); // O(n!)
+✅ For 3 elements → 6 permutations;
+for 4 elements → 24;
+for 10 elements → 3.6 million!
