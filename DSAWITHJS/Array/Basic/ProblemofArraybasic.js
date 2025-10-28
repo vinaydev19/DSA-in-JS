@@ -63,3 +63,17 @@ function findTheSecondLargestElementInArrayOptimal(arr) {
 
 let arr2 = [13, 46, 24, 52, 20, 9];
 console.log(findTheSecondLargestElementInArrayOptimal(arr2));
+
+
+function isSorted(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] < arr[i - 1])
+      return false;
+  }
+
+  return true;
+}
+
+const arr3 = [1, 2, 3, 4, 5];
+
+console.log(isSorted(arr3) ? "True" : "False");
