@@ -177,7 +177,7 @@ console.log("Left rotate an array by D/K places - better Approach - using temp a
 console.log(rotateArrayLeftByDUsingTempArray(arr8, k1));
 
 
-// Left rotate an array by D/K places - better Approach - using reversal algorithm
+// Left rotate an array by D/K places - optimal Approach - using reversal algorithm
 function reverse(arr, i, j) {
     while (i < j) {
         let temp = arr[i]
@@ -200,7 +200,7 @@ function rotateArrayLeftByKUsingReversalAlgorithm(arr, k) {
 
 let arr9 = [1, 2, 3, 4, 5]
 let k3 = 2
-console.log("Left rotate an array by D/K places - better Approach - using reversal algorithm");
+console.log("Left rotate an array by D/K places - optimal Approach - using reversal algorithm");
 console.log(rotateArrayLeftByKUsingReversalAlgorithm(arr9, k3));
 
 
@@ -218,4 +218,67 @@ function rotateArrayRightByOne(arr) {
 }
 
 let arr10 = [1, 2, 3, 4, 5]
-// console.log(rotateArrayRightByOne(arr10));
+console.log("right Rotate an array by one place");
+console.log(rotateArrayRightByOne(arr10));
+
+// Right rotate an array by D/K places - brute force Approach - using two loops
+function rotateArrayRightByKLoopKTimes(arr, k) {
+    k = k % arr.length
+    for (let i = 0; i < k; i++) {
+        let temp = arr[arr.length - 1]
+
+        for (let j = arr.length - 1; j > 0; j--) {
+            arr[j] = arr[j - 1]
+        }
+
+        arr[0] = temp
+    }
+
+    return arr
+}
+
+let arr11 = [1, 2, 3, 4, 5]
+let k4 = 2
+console.log("Right rotate an array by D/K places - brute force Approach - using two loops");
+console.log(rotateArrayRightByKLoopKTimes(arr11, k4));
+
+
+// RIght rotate an array by D/K places - better Approach - using temp array
+function rotateArrayRightByKUsingTempArray(arr, k) {
+    k = k % arr.length
+    let temp = new Array(arr.length)
+
+    for (let i = 0; i < arr.length; i++) {
+        temp[i] = arr[((arr.length - k) + i) % arr.length]
+    }
+
+    // this options if don't want to return new array and want to modify original array
+    for (let i = 0; i < arr.length; i++) {
+        arr[i] = temp[i]
+    }
+
+    return arr
+}
+
+
+let arr12 = [1, 2, 3, 4, 5]
+let k5 = 3
+console.log("Right rotate an array by D/K places - better Approach - using temp array");
+console.log(rotateArrayRightByKUsingTempArray(arr12, k5));
+
+
+// Right rotate an array by D/K places - optimal Approach - using reversal algorithm
+function rotateArrayRightByKUsingReversalAlgorithm(arr, k) {
+    k = k % arr.length
+
+    reverse(arr, 0, arr.length - 1)
+    reverse(arr, 0, k - 1)
+    reverse(arr, k, arr.length - 1)
+
+    return arr
+}
+
+let arr13 = [1, 2, 3, 4, 5]
+let k6 = 2
+console.log("right rotate an array by D/K places - optimal Approach - using reversal algorithm");
+console.log(rotateArrayRightByKUsingReversalAlgorithm(arr13, k6));
