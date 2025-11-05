@@ -22,7 +22,6 @@ function findTheLargestElementInArrayWayOne(arr) {
 
     return arr[arr.length - 1]
 }
-
 let arr = [13, 46, 24, 52, 20, 9];
 console.log("way 1:", findTheLargestElementInArrayWayOne(arr));
 
@@ -44,7 +43,6 @@ console.log("way 2:", findTheLargestElementInArrayWayTwo(arr1));
 
 
 // Find Second Second Largest Element in an array
-
 function findTheSecondLargestElementInArrayOptimal(arr) {
     let largest = -Infinity
     let sLargest = -Infinity
@@ -60,7 +58,6 @@ function findTheSecondLargestElementInArrayOptimal(arr) {
 
     return sLargest
 }
-
 let arr2 = [13, 46, 24, 52, 20, 9];
 console.log(findTheSecondLargestElementInArrayOptimal(arr2));
 
@@ -73,9 +70,7 @@ function isSorted(arr) {
 
     return true;
 }
-
 const arr3 = [1, 2, 3, 4, 5];
-
 console.log(isSorted(arr3) ? "True" : "False");
 
 
@@ -92,7 +87,6 @@ function removeDupliSortedArrayBrute(arr) {
     }
     return index
 }
-
 let arr4 = [1, 1, 2, 2, 2, 3, 3]
 console.log(removeDupliSortedArrayBrute(arr4));
 
@@ -108,11 +102,8 @@ function removeDupliSortedArrayTwoPointer(nums) {
     }
     return i + 1
 }
-
 let arr5 = [1, 1, 2, 2, 2, 3, 3, 4, 4, 4]
 console.log(removeDupliSortedArrayTwoPointer(arr5));
-
-
 
 
 // Left Rotate an array by one place
@@ -127,7 +118,6 @@ function rotateArrayLeftByOne(arr) {
 
     return arr
 }
-
 let arr6 = [1, 2, 3, 4, 5]
 console.log("Left Rotate an array by one place");
 console.log(rotateArrayLeftByOne(arr6));
@@ -170,7 +160,6 @@ function rotateArrayLeftByDUsingTempArray(arr, k) {
 
     return arr
 }
-
 let arr8 = [1, 2, 3, 4, 5]
 let k1 = 3
 console.log("Left rotate an array by D/K places - better Approach - using temp array");
@@ -187,7 +176,6 @@ function reverse(arr, i, j) {
         j--
     }
 }
-
 function rotateArrayLeftByKUsingReversalAlgorithm(arr, k) {
     k = k % arr.length
 
@@ -197,7 +185,6 @@ function rotateArrayLeftByKUsingReversalAlgorithm(arr, k) {
 
     return arr
 }
-
 let arr9 = [1, 2, 3, 4, 5]
 let k3 = 2
 console.log("Left rotate an array by D/K places - optimal Approach - using reversal algorithm");
@@ -216,10 +203,10 @@ function rotateArrayRightByOne(arr) {
 
     return arr
 }
-
 let arr10 = [1, 2, 3, 4, 5]
 console.log("right Rotate an array by one place");
 console.log(rotateArrayRightByOne(arr10));
+
 
 // Right rotate an array by D/K places - brute force Approach - using two loops
 function rotateArrayRightByKLoopKTimes(arr, k) {
@@ -236,7 +223,6 @@ function rotateArrayRightByKLoopKTimes(arr, k) {
 
     return arr
 }
-
 let arr11 = [1, 2, 3, 4, 5]
 let k4 = 2
 console.log("Right rotate an array by D/K places - brute force Approach - using two loops");
@@ -259,8 +245,6 @@ function rotateArrayRightByKUsingTempArray(arr, k) {
 
     return arr
 }
-
-
 let arr12 = [1, 2, 3, 4, 5]
 let k5 = 3
 console.log("Right rotate an array by D/K places - better Approach - using temp array");
@@ -277,8 +261,127 @@ function rotateArrayRightByKUsingReversalAlgorithm(arr, k) {
 
     return arr
 }
-
 let arr13 = [1, 2, 3, 4, 5]
 let k6 = 2
 console.log("right rotate an array by D/K places - optimal Approach - using reversal algorithm");
 console.log(rotateArrayRightByKUsingReversalAlgorithm(arr13, k6));
+
+
+
+// Move Zeros to end - brute force
+function moveZerotoEndBruteForce(arr) {
+    let temp = []
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] != 0) {
+            temp.push(arr[i])
+        }
+    }
+
+    for (let i = 0; i < temp.length; i++) {
+        arr[i] = temp[i]
+    }
+
+    for (let i = temp.length; i < arr.length; i++) {
+        arr[i] = 0
+    }
+
+    return arr
+}
+let arr14 = [0, 1, 0, 3, 12]
+console.log("Move Zeros to end - brute force", moveZerotoEndBruteForce(arr14));
+
+
+// Move Zeros to end - optimal Approach - two pointer
+function moveZerotoEndOptimal(arr) {
+    let zeroIndex = -1
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] != 0) {
+            let temp = arr[i]
+            arr[i] = arr[zeroIndex]
+            arr[zeroIndex] = temp
+            zeroIndex++
+        }
+    }
+    return arr
+}
+let arr15 = [0, 1, 0, 3, 12]
+console.log("Move Zeros to end - optimal Approach - two pointer", moveZerotoEndOptimal(arr15));
+
+
+// Linear Search
+function LinearSearch(arr, target) {
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] === target) {
+            return i
+        }
+    }
+    return -1
+}
+let arr16 = [4, 2, 3, 1, 5]
+let target = 1
+console.log("Linear Search:", LinearSearch(arr16, target));
+
+
+// Find the Union - brute force
+function UnionBruteForce(arr1, arr2) {
+    let freq = new Map();
+    let union = [];
+
+    for (const num of arr1) {
+        freq.set(num, (freq.get(num) || 0) + 1)
+    }
+
+    for (const num of arr2) {
+        freq.set(num, (freq.get(num) || 0) + 1)
+    }
+
+    for (const [num, count] of freq) {
+        union.push(num)
+    }
+
+    return union
+}
+let arr17a = [1, 2, 3, 4]
+let arr17b = [3, 4, 5, 6]
+console.log("Find the Union - brute force:", UnionBruteForce(arr17a, arr17b));
+
+
+// Find the Union - optimal Approach - two pointer
+function UnionOptimal(arr1, arr2) {
+    let union = []
+    let i = 0
+    let j = 0
+
+    while (i < arr1.length && j < arr2.length) {
+        if (arr1[i] <= arr2[j]) {
+            if (union.length === 0 || union[union.length - 1] !== arr1[i]) {
+                union.push(arr1[i])
+            }
+            i++
+        } else {
+            if (union.length === 0 || union[union.length - 1] !== arr2[j]) {
+                union.push(arr2[j])
+            }
+            j++
+        }
+    }
+
+    while (i < arr1.length) { // If any elements left in arr1
+        if (union[union.length - 1] !== arr1[i])
+            union.push(arr1[i]);
+        i++;
+    }
+
+    while (j < arr2.length) { // If any elements left in arr2
+        if (union[union.length - 1] !== arr2[j])
+            union.push(arr2[j]);
+        j++;
+    }
+
+    return union
+}
+let arr18a = [1, 2, 3, 4]
+let arr18b = [3, 4, 5, 6]
+console.log("Find the Union - optimal Approach - two pointer:", UnionOptimal(arr18a, arr18b));
