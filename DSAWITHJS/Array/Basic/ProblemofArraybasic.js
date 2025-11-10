@@ -440,6 +440,7 @@ let arr21 = [1, 2, 3, 5]
 let n21 = 5
 console.log("Find missing number in an array - optimal Approach - using sum formula:", findMissingNumberOptimal(arr21, n21));
 
+
 // find missing number in an array - optimal Approach - using XOR
 function findMissingNumberXOR(arr, n) {
     let xor1 = 0
@@ -449,7 +450,7 @@ function findMissingNumberXOR(arr, n) {
         xor1 ^= arr[i]
         console.log("xor1:", xor1);
     }
-    
+
 
     for (let i = 1; i <= n; i++) {
         xor2 ^= i
@@ -485,7 +486,7 @@ console.log("Maximum Consecutive Ones:", maxConsecutiveOnes(arr23));
 
 // Find the number that appears once, and other numbers twice. - brute force
 function findUniqueNumberBruteForce(arr) {
-    for(let i = 0; i < arr.length; i++) {
+    for (let i = 0; i < arr.length; i++) {
         let count = 0
         for (let j = 0; j < arr.length; j++) {
             if (arr[i] == arr[j]) {
@@ -531,3 +532,82 @@ function findUniqueNumberOptimal(arr) {
 }
 let arr26 = [2, 3, 5, 4, 5, 3, 4]
 console.log("Find the number that appears once, and other numbers twice. - optimal Approach - XOR:", findUniqueNumberOptimal(arr26));
+
+
+// Longest subarray with given sum K(positives) - brute force 
+function longestSubarrayWithSumKBruteForce(arr, k) {
+    let maxLength = 0
+
+    for (let i = 0; i < arr.length; i++) {
+        let currentSum = 0
+        for (let j = i; j < arr.length; j++) {
+            currentSum += arr[j]
+            if (currentSum == k) {
+                maxLength = Math.max(maxLength, j - i + 1)
+            }
+        }
+    }
+
+    return maxLength
+}
+let arr27 = [1, 2, 1, 1, 1]
+let k27 = 3
+console.log("Longest subarray with given sum K(positives) - brute force :", longestSubarrayWithSumKBruteForce(arr27, k27));
+
+
+// Longest subarray with given sum K(positives) - better Approach - hashing
+function longestSubarrayWithSumKBetter(arr, k) {
+    let map = new Map()
+    let sum = 0
+    let maxLength = 0
+
+    for (let i = 0; i < arr.length; i++) {
+        sum += arr[i]
+
+        if (sum == k) {
+            maxLength = i + 1
+        }
+
+        if (!map.has(sum)) {
+            map.set(sum, i)
+        }
+
+        if (map.has(sum - k)) {
+            maxLength = Math.max(maxLength, i - map.get(sum - k))
+        }
+    }
+    return maxLength
+}
+let arr28 = [1, 2, 3, 1, 1, 1, 4, 2, 3]
+let k28 = 3;
+console.log("Longest subarray with given sum K(positives) - better Approach - hashing:", longestSubarrayWithSumKBetter(arr28, k28));
+
+
+// longest subarray with given sum K(positives and negatives) - optimal Approach - two pointer
+function longestSubarrayWithSumKOptimal(arr, k) {
+    let left = 0
+    let right = 0
+    let sum = arr[0]
+    let maxLength = 0
+
+    while (right < arr.length) {
+        while (sum > k && left <= right) {
+            sum -= arr[left]
+            left++
+        }
+
+        if (sum == k) {
+            maxLength = Math.max(maxLength, right - left + 1)
+        }
+
+        right++
+        if (right < arr.length) {
+            sum += arr[right]
+        }
+    }
+
+    return maxLength
+}
+let arr29 = [1, 2, 3, 1, 1, 1, 1, 3, 3]
+let k29 = 6;
+console.log("longest subarray with given sum K(positives and negatives) - optimal Approach - two pointer:", longestSubarrayWithSumKOptimal(arr29, k29));
