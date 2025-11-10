@@ -385,3 +385,149 @@ function UnionOptimal(arr1, arr2) {
 let arr18a = [1, 2, 3, 4]
 let arr18b = [3, 4, 5, 6]
 console.log("Find the Union - optimal Approach - two pointer:", UnionOptimal(arr18a, arr18b));
+
+
+// Find missing number in an array - brute force
+function findMissingNumberBruteForce(arr, n) {
+    for (let i = 1; i < n; i++) {
+        let count = 0
+        for (let j = 0; j = n - 1; j++) {
+            if (arr[j] == i) {
+                count = 1
+            }
+        }
+        if (count == 0) {
+            return 1
+        }
+    }
+}
+let arr19 = [1, 2, 4, 5, 6]
+let n19 = 6
+// console.log("Find missing number in an array - brute force:", findMissingNumberBruteForce(arr19, n19));
+
+
+// Find missing number in an array - better Approach - hashing
+function findMissingNumberBetter(arr, n) {
+    let freq = new Array(n + 1).fill(0)
+
+    for (let i = 0; i < arr.length; i++) {
+        freq[arr[i]] = 1
+    }
+
+    for (let i = 1; i <= n; i++) {
+        if (freq[i] == 0) {
+            return i
+        }
+    }
+}
+let arr20 = [1, 2, 3, 4, 6]
+let n20 = 6
+console.log("Find missing number in an array - better Approach - hashing:", findMissingNumberBetter(arr20, n20));
+
+
+// Find missing number in an array - optimal Approach - using sum formula
+function findMissingNumberOptimal(arr, n) {
+    let total = (n * (n + 1)) / 2
+    let sum = 0
+
+    for (let i = 0; i < arr.length; i++) {
+        sum += arr[i]
+    }
+
+    return total - sum
+}
+let arr21 = [1, 2, 3, 5]
+let n21 = 5
+console.log("Find missing number in an array - optimal Approach - using sum formula:", findMissingNumberOptimal(arr21, n21));
+
+// find missing number in an array - optimal Approach - using XOR
+function findMissingNumberXOR(arr, n) {
+    let xor1 = 0
+    let xor2 = 0
+
+    for (let i = 0; i < arr.length; i++) {
+        xor1 ^= arr[i]
+        console.log("xor1:", xor1);
+    }
+    
+
+    for (let i = 1; i <= n; i++) {
+        xor2 ^= i
+    }
+
+    return xor1 ^ xor2
+}
+let arr22 = [1, 2, 4, 5]
+let n22 = 5
+console.log("find missing number in an array - optimal Approach - using XOR:", findMissingNumberXOR(arr22, n22));
+
+
+
+// Maximum Consecutive Ones
+function maxConsecutiveOnes(arr) {
+    let maxCount = 0
+    let count = 0
+
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] == 1) {
+            count++
+            maxCount = Math.max(maxCount, count)
+        } else {
+            count = 0
+        }
+    }
+
+    return maxCount
+}
+let arr23 = [1, 1, 0, 1, 1, 1]
+console.log("Maximum Consecutive Ones:", maxConsecutiveOnes(arr23));
+
+
+// Find the number that appears once, and other numbers twice. - brute force
+function findUniqueNumberBruteForce(arr) {
+    for(let i = 0; i < arr.length; i++) {
+        let count = 0
+        for (let j = 0; j < arr.length; j++) {
+            if (arr[i] == arr[j]) {
+                count++
+            }
+        }
+        if (count == 1) {
+            return arr[i]
+        }
+    }
+}
+let arr24 = [2, 3, 5, 4, 5, 3, 4]
+console.log("Find the number that appears once, and other numbers twice. - brute force:", findUniqueNumberBruteForce(arr24));
+
+
+// Find the number that appears once, and other numbers twice. - better Approach - using hashing
+function findUniqueNumberBetter(arr) {
+    let freq = new Map();
+
+    for (const num of arr) {
+        freq.set(num, (freq.get(num) || 0) + 1)
+    }
+
+    for (const [num, count] of freq) {
+        if (count == 1) {
+            return num
+        }
+    }
+}
+let arr25 = [2, 3, 5, 4, 5, 3, 4]
+console.log("Find the number that appears once, and other numbers twice. - better Approach - using hashing:", findUniqueNumberBetter(arr25));
+
+
+// Find the number that appears once, and other numbers twice. - optimal Approach - XOR
+function findUniqueNumberOptimal(arr) {
+    let xor = 0
+
+    for (let i = 0; i < arr.length; i++) {
+        xor ^= arr[i]
+    }
+
+    return xor
+}
+let arr26 = [2, 3, 5, 4, 5, 3, 4]
+console.log("Find the number that appears once, and other numbers twice. - optimal Approach - XOR:", findUniqueNumberOptimal(arr26));
