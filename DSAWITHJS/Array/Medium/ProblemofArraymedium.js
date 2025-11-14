@@ -307,8 +307,108 @@ console.log("stock buy and sell brute force:", maxProfitBruteForce(prices1)); //
 
 // Stock Buy And Sell - optimal approach
 function maxProfitOptimal(prices) {
-c
+    let minPrice = prices[0];
+    let maxProfit = 0
+
+    for (let i = 1; i < prices.length; i++) {
+        let cost = prices[i] - minPrice;
+        maxProfit = Math.max(maxProfit, cost);
+        minPrice = Math.min(minPrice, prices[i]);
+    }
+    return maxProfit;
 }
 // Example usage:
 let prices2 = [7, 1, 5, 3, 6, 4];
 console.log("stock buy and sell optimal:", maxProfitOptimal(prices2)); // Output: 5
+
+
+
+// Rearrange the array in alternating positive and negative items - brute force approach
+function rearrangeArrayBruteForce(nums) {
+    const positive = [];
+    const negative = [];
+
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] >= 0) {
+            positive.push(nums[i]);
+        } else {
+            negative.push(nums[i]);
+        }
+    }
+
+    for (let i = 0; i < nums.length / 2; i++) {
+        nums[2 * i] = positive[i];
+        nums[2 * i + 1] = negative[i];
+    }
+
+    return nums;
+}
+// Example usage:
+let arr13 = [3, -2, 1, -5, 4, -1];
+console.log("rearrange array brute force:", rearrangeArrayBruteForce(arr13)); // Output: [3, -2, 1, -5, 4, -1]
+
+
+// Rearrange the array in alternating positive and negative items - optimal approach
+function rearrangeArrayOptimal(nums) {
+    let posIndex = 0;
+    let negIndex = 1;
+    let result = new Array(nums.length);
+
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] >= 0) {
+            result[posIndex] = nums[i];
+            posIndex += 2;
+        } else {
+            result[negIndex] = nums[i];
+            negIndex += 2;
+        }
+    }
+    return result;
+}
+// Example usage:
+let arr14 = [3, -2, 1, -5, 4, -1, 6, -3];
+console.log("rearrange array optimal:", rearrangeArrayOptimal(arr14)); // Output: [3, -2, 1, -5, 4, -1]
+
+
+// rearrange the array in alternating positive and negative items - optimal approach this follow up problem
+// where the number of positive and negative numbers are not equal
+// add them at the end without alternating order
+function rearrangeArrayOptimalFollowUp(nums) {
+    let posIndex = 0;
+    let negIndex = 1;
+    let result = new Array(nums.length);
+
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] >= 0) {
+            if (posIndex < nums.length) {
+                result[posIndex] = nums[i];
+                posIndex += 2;
+            } else {
+                // If positive index exceeds, add to the end
+                for (let j = 0; j < nums.length; j++) {
+                    if (result[j] === undefined) {
+                        result[j] = nums[i];
+                        break;
+                    }
+                }
+            }
+        } else {
+            if (negIndex < nums.length) {
+                result[negIndex] = nums[i];
+                negIndex += 2;
+            } else {
+                // If negative index exceeds, add to the end
+                for (let j = 0; j < nums.length; j++) {
+                    if (result[j] === undefined) {
+                        result[j] = nums[i];
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    return result;
+}
+// Example usage:
+let arr15 = [3, -2, 1, -5, 2, 3];
+console.log("rearrange array optimal follow up:", rearrangeArrayOptimalFollowUp(arr15)); // Output: [3, -2, 1, -5, 4, -1, 6]
