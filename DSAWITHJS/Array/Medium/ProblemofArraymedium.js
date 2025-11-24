@@ -412,3 +412,40 @@ function rearrangeArrayOptimalFollowUp(nums) {
 // Example usage:
 let arr15 = [3, -2, 1, -5, 2, 3];
 console.log("rearrange array optimal follow up:", rearrangeArrayOptimalFollowUp(arr15)); // Output: [3, -2, 1, -5, 4, -1, 6]
+
+
+// Next Permutation
+function nextPermutation(arr) {
+    let index = -1
+    for (let i = arr.length - 2; i >= 0; i--) {
+        if (arr[i] < arr[i + 1]) {
+            index = 1
+            break;
+        }
+    }
+
+    if (index == -1) {
+        arr.reverse();
+        return
+    }
+
+    for (let i = arr.length - 1; i > index; i--) {
+        if (arr[i] > arr[index]) {
+            [arr[i], arr[index]] = [arr[index], arr[i]]
+            break
+        }
+    }
+
+    let left = index + 1
+    let right = arr.length - 1
+
+    while (left < right) {
+        [arr[left], arr[right]] = [arr[right], arr[left]]
+        left++
+        right--
+    }
+
+    return arr
+}
+let arr16 = [2, 1, 5, 4, 3, 0, 0]
+console.log("next Permutation:", nextPermutation(arr16));
