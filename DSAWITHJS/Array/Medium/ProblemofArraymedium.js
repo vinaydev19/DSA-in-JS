@@ -449,3 +449,48 @@ function nextPermutation(arr) {
 }
 let arr16 = [2, 1, 5, 4, 3, 0, 0]
 console.log("next Permutation:", nextPermutation(arr16));
+
+
+// Leaders in an Array problem - brute force
+function LeadersArrayBrute(arr) {
+    let ans = []
+
+    for (let i = 0; i < arr.length; i++) {
+        let Leader = true
+        for (let j = i + 1; j < arr.length; j++) {
+            if (arr[j] > arr[i]) {
+                Leader = false
+                break
+            }
+        }
+
+        if (Leader) {
+            ans.push(arr[i])
+        }
+    }
+
+    return ans
+}
+
+let arr17 = [1, 2, 5, 3, 1, 2];
+console.log("Leaders in the array are: ", LeadersArrayBrute(arr17));
+
+
+// Leaders in an Array problem - optimal
+function LeadersArrayOptimal(arr) {
+    let ans = []
+
+    let max = -Infinity
+
+    for (let i = arr.length - 1; i >= 0; i--) {
+        if (arr[i] > max) {
+            ans.push(arr[i])
+        }
+        max = Math.max(max, arr[i])
+    }
+
+    return ans
+}
+let arr18 = [1, 2, 5, 3, 1, 2];
+console.log("Leaders in the array are: ", LeadersArrayOptimal(arr18));
+
