@@ -494,3 +494,119 @@ function LeadersArrayOptimal(arr) {
 let arr18 = [1, 2, 5, 3, 1, 2];
 console.log("Leaders in the array are: ", LeadersArrayOptimal(arr18));
 
+
+// Longest Consecutive Sequence in an Array - brute force
+function longestConsecutiveBruteForce(nums) {
+    // If the array is empty
+    if (nums.length === 0) {
+        return 0;
+    }
+    const n = nums.length;
+    // Initialize the longest sequence length
+    let longest = 1;
+
+    // Iterate through each element in the array
+    for (let i = 0; i < n; i++) {
+        // Current element
+        let x = nums[i];
+        // Count of the current sequence
+        let cnt = 1;
+
+        // Search for consecutive numbers
+        while (linearSearch(nums, x + 1)) {
+            // Move to the next number in the sequence
+            x += 1;
+            // Increment the count of the sequence
+            cnt += 1;
+        }
+
+        // Update the longest sequence length found so far
+        longest = Math.max(longest, cnt);
+    }
+    return longest;
+}
+
+function linearSearch(nums, num) {
+    const n = nums.length;
+    // Traverse through the array
+    for (let i = 0; i < n; i++) {
+        if (nums[i] === num)
+            return true;
+    }
+    return false;
+}
+
+let arr19 = [100, 4, 200, 1, 3, 2];
+console.log("The longest consecutive sequence is brute force", longestConsecutiveBruteForce(arr19));
+
+
+// Longest Consecutive Sequence in an Array - better
+function longestConsecutiveBetter(nums) {
+    let n = nums.length;
+
+    // Return 0 if array is empty
+    if (n === 0) return 0;
+
+    nums.sort((a, b) => a - b);
+
+    // Track last smaller element
+    let lastSmaller = -Infinity;
+    // Count current sequence length
+    let cnt = 0;
+    // Track longest sequence length
+    let longest = 1;
+
+    for (let i = 0; i < n; i++) {
+        // If consecutive number exists
+        if (nums[i] - 1 === lastSmaller) {
+            // Increment sequence count
+            cnt += 1;
+            // Update last smaller element
+            lastSmaller = nums[i];
+        }
+        // If consecutive number doesn't exist
+        else if (nums[i] !== lastSmaller) {
+            // Reset count for new sequence
+            cnt = 1;
+            // Update last smaller element
+            lastSmaller = nums[i];
+        }
+        // Update longest if needed
+        longest = Math.max(longest, cnt);
+    }
+    return longest;
+}
+
+let arr20 = [100, 4, 200, 1, 3, 2];
+console.log("The longest consecutive sequence is better", longestConsecutiveBetter(arr20));
+
+
+
+// Longest Consecutive Sequence in an Array - optimal
+function longestConsecutiveOptimal(nums) {
+    let n = nums.length;
+    if (n === 0) return 0;
+
+    let longest = 1;
+    let st = new Set();
+
+    for (let i = 0; i < n; i++) {
+        st.add(nums[i]);
+    }
+
+    for (let it of st) {
+        if (!st.has(it - 1)) {
+            let cnt = 1;
+            let x = it;
+            while (st.has(x + 1)) {
+                x = x + 1;
+                cnt = cnt + 1;
+            }
+            longest = Math.max(longest, cnt);
+        }
+    }
+    return longest;
+}
+
+let arr21 = [100, 4, 200, 1, 3, 2];
+console.log("The longest consecutive sequence is better", longestConsecutiveOptimal(arr21));
