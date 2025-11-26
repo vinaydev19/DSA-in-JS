@@ -497,30 +497,21 @@ console.log("Leaders in the array are: ", LeadersArrayOptimal(arr18));
 
 // Longest Consecutive Sequence in an Array - brute force
 function longestConsecutiveBruteForce(nums) {
-    // If the array is empty
     if (nums.length === 0) {
         return 0;
     }
     const n = nums.length;
-    // Initialize the longest sequence length
     let longest = 1;
 
-    // Iterate through each element in the array
     for (let i = 0; i < n; i++) {
-        // Current element
         let x = nums[i];
-        // Count of the current sequence
         let cnt = 1;
 
-        // Search for consecutive numbers
         while (linearSearch(nums, x + 1)) {
-            // Move to the next number in the sequence
             x += 1;
-            // Increment the count of the sequence
             cnt += 1;
         }
 
-        // Update the longest sequence length found so far
         longest = Math.max(longest, cnt);
     }
     return longest;
@@ -528,7 +519,6 @@ function longestConsecutiveBruteForce(nums) {
 
 function linearSearch(nums, num) {
     const n = nums.length;
-    // Traverse through the array
     for (let i = 0; i < n; i++) {
         if (nums[i] === num)
             return true;
@@ -544,34 +534,23 @@ console.log("The longest consecutive sequence is brute force", longestConsecutiv
 function longestConsecutiveBetter(nums) {
     let n = nums.length;
 
-    // Return 0 if array is empty
     if (n === 0) return 0;
 
     nums.sort((a, b) => a - b);
 
-    // Track last smaller element
     let lastSmaller = -Infinity;
-    // Count current sequence length
     let cnt = 0;
-    // Track longest sequence length
     let longest = 1;
 
     for (let i = 0; i < n; i++) {
-        // If consecutive number exists
         if (nums[i] - 1 === lastSmaller) {
-            // Increment sequence count
             cnt += 1;
-            // Update last smaller element
             lastSmaller = nums[i];
         }
-        // If consecutive number doesn't exist
         else if (nums[i] !== lastSmaller) {
-            // Reset count for new sequence
             cnt = 1;
-            // Update last smaller element
             lastSmaller = nums[i];
         }
-        // Update longest if needed
         longest = Math.max(longest, cnt);
     }
     return longest;
@@ -610,3 +589,124 @@ function longestConsecutiveOptimal(nums) {
 
 let arr21 = [100, 4, 200, 1, 3, 2];
 console.log("The longest consecutive sequence is better", longestConsecutiveOptimal(arr21));
+
+
+// Set Matrix Zero - brute force
+function setZeroesBrute(matrix) {
+    let m = matrix.length;
+    let n = matrix[0].length;
+
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (matrix[i][j] === 0) {
+                for (let col = 0; col < n; col++) {
+                    if (matrix[i][col] !== 0)
+                        matrix[i][col] = -1;
+                }
+                for (let row = 0; row < m; row++) {
+                    if (matrix[row][j] !== 0)
+                        matrix[row][j] = -1;
+                }
+            }
+        }
+    }
+
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (matrix[i][j] === -1)
+                matrix[i][j] = 0;
+        }
+    }
+
+    return matrix
+}
+
+let matrix = [[1, 1, 1], [1, 0, 1], [1, 1, 1]];
+console.log("Set Matrix Zere brute: ", setZeroesBrute(matrix));
+
+// Set Matrix Zero - better
+function setZeroesBetter(matrix) {
+    const m = matrix.length;
+    const n = matrix[0].length;
+
+    const row = new Array(m).fill(false);
+    const col = new Array(n).fill(false);
+
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (matrix[i][j] === 0) {
+                row[i] = true;
+                col[j] = true;
+            }
+        }
+    }
+
+    for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+            if (row[i] || col[j]) {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+    return matrix
+}
+
+let matrix1 = [[1, 1, 1], [1, 0, 1], [1, 1, 1]];
+console.log("Set Matrix Zere brute: ", setZeroesBetter(matrix1));
+
+
+// Set Matrix Zero - optimal
+function setZeroesOptimal(matrix) {
+    let m = matrix.length;
+    let n = matrix[0].length;
+
+    let firstRowZero = false;
+    let firstColZero = false;
+
+    for (let j = 0; j < n; j++) {
+        if (matrix[0][j] === 0) {
+            firstRowZero = true;
+            break;
+        }
+    }
+
+    for (let i = 0; i < m; i++) {
+        if (matrix[i][0] === 0) {
+            firstColZero = true;
+            break;
+        }
+    }
+
+    for (let i = 1; i < m; i++) {
+        for (let j = 1; j < n; j++) {
+            if (matrix[i][j] === 0) {
+                matrix[i][0] = 0;
+                matrix[0][j] = 0;
+            }
+        }
+    }
+
+    for (let i = 1; i < m; i++) {
+        for (let j = 1; j < n; j++) {
+            if (matrix[i][0] === 0 || matrix[0][j] === 0) {
+                matrix[i][j] = 0;
+            }
+        }
+    }
+
+    if (firstRowZero) {
+        for (let j = 0; j < n; j++) {
+            matrix[0][j] = 0;
+        }
+    }
+
+    if (firstColZero) {
+        for (let i = 0; i < m; i++) {
+            matrix[i][0] = 0;
+        }
+    }
+    return matrix
+}
+
+let matrix2 = [[1, 1, 1], [1, 0, 1], [1, 1, 1]];
+console.log("Set Matrix Zere brute: ", setZeroesOptimal(matrix2));
